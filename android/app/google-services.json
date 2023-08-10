@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "204824942281",
+    "project_id": "chemtro-edf06",
+    "storage_bucket": "chemtro-edf06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204824942281:android:c19d020dd65af168b85f18",
+        "android_client_info": {
+          "package_name": "com.chemtro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204824942281-tbp08kg1lc4ej0lmpj9ra6e7c7e7d7rd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANPFnkUkD3WAkj1PWPHRksQisrYSS8B1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204824942281-tbp08kg1lc4ej0lmpj9ra6e7c7e7d7rd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
