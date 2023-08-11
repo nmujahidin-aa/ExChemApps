@@ -1,5 +1,5 @@
-import CustomTab from "./CustomTab";
+import CustomTouchable from "./CustomTouchble";
 
 export {
-    CustomTab,
+    CustomTouchable,
 }

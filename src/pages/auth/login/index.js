@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Image, KeyboardAvoidingView, TouchableOpacity, ScrollView } from 'react-native'
 import React, {useState} from 'react'
 import InputComponent from '../../../Components/CustomeInput/InputComponent';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import {FIREBASE_AUTH} from '../../../../FirebseConfig'
 import SweetAlert from 'react-native-sweet-alert';
@@ -14,7 +13,7 @@ const Login = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const auth = FIREBASE_AUTH;
-  const onLoginPressed = () => {
+  const onLoginPressed = async () => {
     if (!email || !password) {
       SweetAlert.showAlertWithOptions({
         title: "Gagal",
@@ -24,9 +23,9 @@ const Login = ({navigation}) => {
       });
       return;
     }
+    setLoading(true);
     try {
-      setLoading(true);
-      signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       navigation.reset({
         index: 0,
         routes: [{name: "MainApp"}],
@@ -39,6 +38,7 @@ const Login = ({navigation}) => {
         cancellable: false,
       });
     }catch(error){
+      setLoading(true);
       if (error.code === 'auth/invalid-email') {
         SweetAlert.showAlertWithOptions({
           title: "Gagal",
@@ -60,7 +60,7 @@ const Login = ({navigation}) => {
       else if (error.code === 'auth/wrong-password') {
         SweetAlert.showAlertWithOptions({
           title: "Gagal",
-          subTitle: "Password yang anda inputkan salah",
+          subTitle: "Email atau Password yang anda inputkan salah",
           confirmationButtonTitle: "OK",
           style: "error",
           cancellable: false,
@@ -86,6 +86,7 @@ const Login = ({navigation}) => {
   return (
     <ScrollView style={{flex: 1, backgroundColor: "#EDE0B3",}}>
       <View style={styles.container}>
+      <Spinner visible={loading}/>
       <Image style={styles.image} source={require('../../../assets/images/favicon.png')}/>
       <Text style={styles.p}>Silahkan masuk di sini</Text>
       <KeyboardAvoidingView behavior='padding's>
