@@ -127,7 +127,7 @@ const Home = ({navigation}) => {
 
           {/* Chemtro AI */}
           <View style={styles.main}>
-            <TouchableOpacity activeOpacity={0.7}>
+            <TouchableOpacity activeOpacity={0.7} onPress={()=> navigation.navigate('ChemtroAI')}>
               <Image source={require('../../../assets/images/AI.png')} style={styles.chemtroai}/>
             </TouchableOpacity>
           </View>

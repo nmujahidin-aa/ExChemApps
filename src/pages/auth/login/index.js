@@ -66,6 +66,24 @@ const Login = ({navigation}) => {
           cancellable: false,
         });
       }
+      else if (error.code === 'auth/network-request-failed') {
+        SweetAlert.showAlertWithOptions({
+          title: "Tidak ada sambungan",
+          subTitle: "Sepertinya perangkat kamu tidak terhubung ke internet ya.",
+          confirmationButtonTitle: "OK",
+          style: "error",
+          cancellable: false,
+        });
+      }
+      else if (error.code === 'auth/too-many-requests') {
+        SweetAlert.showAlertWithOptions({
+          title: "Terlalu banyak upaya login",
+          subTitle: "Silahkan melakukan reset password, untuk menghindari penyalahgunaan akun anda.(hubungi official chemtro: @chemtro.pkmk)",
+          confirmationButtonTitle: "OK",
+          style: "error",
+          cancellable: false,
+        });
+      }
       else{
         SweetAlert.showAlertWithOptions({
           title: "Gagal",
