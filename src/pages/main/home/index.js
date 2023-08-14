@@ -1,7 +1,9 @@
 import { FlatList, ScrollView, StyleSheet, Text, View, Image, Linking, TouchableOpacity } from 'react-native'
-import React, {useRef} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { createStackNavigator } from '@react-navigation/stack';
+import { FIRESTORE_DB, FIREBASE_AUTH } from '../../../../FirebseConfig';
+import { doc, getDoc } from 'firebase/firestore';
+import 'firebase/firestore';
 
 const Link = [
   {
@@ -25,7 +27,7 @@ const renderImage = ({ item }) => (
 );
 
 const MenuComponent = ({ imageSource, text, onPress  }) => {
-  const animationRef = useRef()
+  const animationRef = useRef();
   return (
     <View style={{paddingTop: 15,}}>
       <TouchableOpacity activeOpacity={0.7} onPress={onPress} style={styles.menuContainer}>
@@ -40,6 +42,24 @@ const MenuComponent = ({ imageSource, text, onPress  }) => {
 
 
 const Home = ({navigation}) => {
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = FIREBASE_AUTH.currentUser;
+      if (user) {
+        const userDocRef = doc(FIRESTORE_DB, 'Users', user.uid); // Menggunakan referensi dokumen di koleksi 'Users' dengan UID pengguna.
+        const userDocSnap = await getDoc(userDocRef); // Mengambil data dokumen.
+  
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          setUsername(userData.username);
+        }
+      }
+    };
+  
+    fetchUserData();
+  }, []);
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Chemtro</Text>
@@ -47,9 +67,9 @@ const Home = ({navigation}) => {
 
         <View style={styles.row}>
           <View style={{flexDirection: "row",}}>
-            <Image source={require("../../../assets/images/foto.png")} style={styles.img}/>
+            <Image source={require("../../../assets/images/avatar.png")} style={styles.img}/>
             <View>
-              <Text style={styles.text}>Hai, Sobat Chemtro</Text>
+              <Text style={styles.text}>Hai, {username}</Text>
               <Text style={styles.text2}>Selamat Datang!</Text>
             </View>         
           </View>

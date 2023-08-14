@@ -1,6 +1,7 @@
 import { Alert, StyleSheet, Text, TouchableOpacity, View, ScrollView, Dimensions, Image } from 'react-native'
-import React from 'react'
-import { FIREBASE_AUTH } from '../../../../FirebseConfig'
+import React, {useEffect, useState} from 'react'
+import { FIREBASE_AUTH, FIRESTORE_DB } from '../../../../FirebseConfig'
+import { doc, getDoc } from 'firebase/firestore';
 import { signOut } from 'firebase/auth';
 import { CommonActions } from '@react-navigation/native';
 import { CustomTouchable } from '../../../Components';
@@ -10,7 +11,7 @@ import Svg, { Path } from 'react-native-svg';
 const Settings = ({navigation}) => {
   const screenWidth = Dimensions.get('window').width;
   const halfCircleHeight = 100;
-
+  const firestore = FIRESTORE_DB;
   const auth = FIREBASE_AUTH;
   const showConfirmLogout = () => {
     Alert.alert(
@@ -32,14 +33,35 @@ const Settings = ({navigation}) => {
     ))
   }
 
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const fetchUserData = async () => { // Tambahkan async di sini
+      const user = FIREBASE_AUTH.currentUser;
+      if (user) {
+        const userDocRef = doc(FIRESTORE_DB, 'Users', user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          setUserData({
+            username: userData.username,
+            email: user.email,
+          });
+        }
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Akun</Text>
       <ScrollView>
       <View style={[styles.rectangle, { width: screenWidth }]}>
-        <Image source={require("../../../assets/images/team/idin.jpg")} style={styles.image}/>
-        <Text style={styles.text}>Nur Mujahidin Achmad Akbar</Text>
-        <Text style={styles.textemail}>nur.mujahidin.2105336@students.um.ac.id</Text>
+        <Image source={require("../../../assets/images/avatar.png")} style={styles.image}/>
+        <Text style={styles.text}>{userData && userData.username}</Text>
+        <Text style={styles.textemail}>{userData && userData.email}</Text>
       </View>
       <Svg width={screenWidth} height={halfCircleHeight} viewBox={`0 0 ${screenWidth} ${halfCircleHeight}`} style={styles.halfCircle}>
         <Path
@@ -178,6 +200,7 @@ const styles = StyleSheet.create({
   },
   text:{
     fontWeight: "bold",
+    paddingTop: 10,
     fontSize: 20,
     color: "#fff",
     textAlign: "center",
