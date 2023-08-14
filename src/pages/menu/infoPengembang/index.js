@@ -71,10 +71,10 @@ const renderTeam = ({ item }) => (
             <Text style={styles.follow}>Follow me on:</Text>
             <View style={{flexDirection: "row", alignContent: "center",}}>
                 <Icon style={{paddingTop: 4,}} name={item.icon} size={15} color="#000" />
-                <Text style={{paddingLeft: 5, fontSize: 12, paddingVertical: 2,}}>{item.social}</Text>
+                <Text style={{paddingLeft: 5, fontSize: 12, paddingVertical: 2,color: "#747474",}}>{item.social}</Text>
 
                 <Icon style={{paddingTop: 4, marginLeft: 10,}} name={item.icon2} size={15} color="#000" />
-                <Text style={{paddingLeft: 5, fontSize: 12, paddingVertical: 2,}}>{item.social2}</Text>
+                <Text style={{paddingLeft: 5, fontSize: 12, paddingVertical: 2,color: "#747474",}}>{item.social2}</Text>
             </View>
         </View>
     </View>
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         textAlign: "justify",
         paddingTop: 10,
+        color: "#747474",
     },
     card:{
         flexDirection: "row",
@@ -155,13 +156,16 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: "bold",
         marginTop: -2,
+        color: "#524F4F",
     },
     intro:{
         flexWrap: 'wrap',
         marginTop: 8,
+        color: "#747474",
     },
     follow:{
         fontSize: 11,
         fontWeight: "bold",
+        color: "#747474",
     },
 })

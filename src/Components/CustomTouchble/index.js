@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   },
   text:{
     fontWeight: "bold",
+    color: "#777",
   },
   icon:{
     textAlign: "center",

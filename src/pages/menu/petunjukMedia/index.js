@@ -83,7 +83,7 @@ const PetunjukMedia = () => {
           renderItem={renderGuide}
         />
         <View style={{paddingBottom: 30, }}></View>
-        <Text style={{textAlign: "center", paddingBottom: 10,}}>Build With  
+        <Text style={{textAlign: "center", paddingBottom: 10, color: "#747474",}}>Build With  
           <Icon style={{paddingTop: 4, marginLeft: 10,}} name="heart" size={14} color="#F00A0A" />
         </Text>
         

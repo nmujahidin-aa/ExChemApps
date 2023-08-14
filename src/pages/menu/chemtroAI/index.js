@@ -1,14 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { WebView } from 'react-native-webview';
+import LottieView from 'lottie-react-native';
 
 const ChemtroAI = () => {
+  const [isLoading, setIsLoading] = useState(true);
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Chemtro AI</Text>
-      <WebView style={styles.webview}
-        source={{ uri: 'https://mediafiles.botpress.cloud/066de083-ae67-432c-8ece-861e60b195b8/webchat/bot.html' }}
+      {isLoading && (
+        <View style={styles.loadingContainer}>
+        <LottieView
+          source={require('../../../assets/lottie/ai.json')} // Ganti dengan path animasi Anda
+          autoPlay
+          loop
+          style={styles.lottie}
+        />
+        </View>
+      )}
+      <WebView
+        style={[styles.webview, { display: isLoading ? 'none' : 'flex' }]}
+        source={{ uri: 'https://mediafiles.botpress.cloud/d12f06b8-0f4b-4df2-ad9f-e4a515bcd309/webchat/bot.html' }}
         originWhitelist={['*']}
+        onLoad={() => setIsLoading(false)}
       />
     </View>
   );
@@ -16,9 +30,14 @@ const ChemtroAI = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#EDE0B3",
-    width: "100%",
-    height: "100%",
+    backgroundColor: "#fff",
+    flex:1,
+  },
+  loadingContainer: {
+    flex: 1,
+    paddingTop: 220,
+    justifyContent: 'center', // Pusat secara vertikal
+    alignItems: 'center', // Pusat secara horizontal
   },
   header:{
     textAlign: "center",
@@ -28,8 +47,13 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   webview:{
-    marginTop: -100,
-    backgroundColor: "#EDE0B3",
+    marginTop: -80,
+    backgroundColor: "#fff",
+    flex: 1,
+  },
+  lottie:{
+    width: 200,
+    height: 200,
   },
 });
 

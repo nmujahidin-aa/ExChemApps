@@ -1,34 +1,36 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView} from 'react-native'
 import React, {useRef} from 'react'
 
 const Welcome = ({navigation}) => {
   const animationRef = useRef()
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Chemtro</Text>
-      <Image style={styles.image} source={require('../../assets/images/favicon.png')}/>
-      <View style={styles.card}>
-        <Text style={styles.h2}>Selamat Datang di Chemtro</Text>
-        <Text style={styles.p}>Aplikasi Pembelajaran Kimia Materi Elektrokimia</Text>
-        <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.login}>Masuk</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnRegister} onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.register}>Daftar</Text>
-        </TouchableOpacity>
-        <Text style={styles.span}>Dengan masuk atau mendaftar, kamu telah menyetujui{" "}
-            <View style={styles.inlineLinks}>
-                <TouchableOpacity onPress={() => navigation.navigate('Terms')}>
-                <Text style={styles.link}>ketentuan layanan</Text>
-                </TouchableOpacity>
-                <Text style={{color: '#fff', fontSize: 12}}>{" "}dan{"  "}</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Privacy')}>
-                <Text style={styles.link}>privasi</Text>
-                </TouchableOpacity>
-            </View>
-        </Text>
+    <ScrollView>
+        <View style={styles.container}>
+        <Text style={styles.header}>Chemtro</Text>
+        <Image style={styles.image} source={require('../../assets/images/favicon.png')}/>
+        <View style={styles.card}>
+            <Text style={styles.h2}>Selamat Datang di Chemtro</Text>
+            <Text style={styles.p}>Aplikasi Pembelajaran Kimia Materi Elektrokimia</Text>
+            <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate('Login')}>
+                <Text style={styles.login}>Masuk</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.btnRegister} onPress={() => navigation.navigate('Register')}>
+                <Text style={styles.register}>Daftar</Text>
+            </TouchableOpacity>
+            <Text style={styles.span}>Dengan masuk atau mendaftar, kamu telah menyetujui{" "}
+                <View style={styles.inlineLinks}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Terms')}>
+                    <Text style={styles.link}>ketentuan layanan</Text>
+                    </TouchableOpacity>
+                    <Text style={{color: '#fff', fontSize: 12}}>{" "}dan{"  "}</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Privacy')}>
+                    <Text style={styles.link}>privasi</Text>
+                    </TouchableOpacity>
+                </View>
+            </Text>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
