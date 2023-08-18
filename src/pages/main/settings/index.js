@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, TouchableOpacity, View, ScrollView, Dimensions, Image } from 'react-native'
+import { Alert, StyleSheet, Text, TouchableOpacity, View, ScrollView, Dimensions, Image, RefreshControl } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../../../../FirebseConfig'
 import { doc, getDoc } from 'firebase/firestore';
@@ -7,12 +7,17 @@ import { CommonActions } from '@react-navigation/native';
 import { CustomTouchable } from '../../../Components';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Svg, { Path } from 'react-native-svg';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const Settings = ({navigation}) => {
   const screenWidth = Dimensions.get('window').width;
   const halfCircleHeight = 100;
   const firestore = FIRESTORE_DB;
   const auth = FIREBASE_AUTH;
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  
   const showConfirmLogout = () => {
     Alert.alert(
       'Konfirmasi',
@@ -33,14 +38,16 @@ const Settings = ({navigation}) => {
     ))
   }
 
-  const [userData, setUserData] = useState(null);
-  useEffect(() => {
-    const fetchUserData = async () => { // Tambahkan async di sini
+  const onRefresh = async () => {
+    setRefreshing(true);
+    setIsLoading(true);
+    
+    try {
       const user = FIREBASE_AUTH.currentUser;
       if (user) {
         const userDocRef = doc(FIRESTORE_DB, 'Users', user.uid);
         const userDocSnap = await getDoc(userDocRef);
-
+  
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
           setUserData({
@@ -49,19 +56,72 @@ const Settings = ({navigation}) => {
           });
         }
       }
+    } catch (error) {
+      console.log('Error refreshing data:', error);
+    }
+
+    setIsLoading(false);
+    setRefreshing(false);
+  };
+  
+
+
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+        const user = FIREBASE_AUTH.currentUser;
+        if (user) {
+            const userDocRef = doc(FIRESTORE_DB, 'Users', user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            if (userDocSnap.exists()) {
+                const userData = userDocSnap.data();
+                setUserData({
+                    username: userData.username,
+                    email: user.email,
+                });
+                setIsLoading(false); // Setelah data dimuat, ubah isLoading menjadi false
+            }
+        }
     };
 
     fetchUserData();
-  }, []);
+  }, [refreshing]);
+
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Akun</Text>
-      <ScrollView>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={['#7E370C']} // Customize the loading indicator color
+          />
+        }
+      >
       <View style={[styles.rectangle, { width: screenWidth }]}>
+        {isLoading ? (
+          <SkeletonPlaceholder borderRadius={4}>
+            <View style={{alignItems: 'center'}}>
+              <View style={{width: 100, height: 100, borderRadius: 50}} />
+              <View>
+                <Image style={{marginTop: 6, width: 150, height: 18}} source={require('../../../assets/images/avatar.png')} />
+                <Text style={{marginTop: 6, fontSize: 14, lineHeight: 14,}}></Text>
+              </View>
+            </View>
+            
+          </SkeletonPlaceholder>
+          ) : (
+          <>
         <Image source={require("../../../assets/images/avatar.png")} style={styles.image}/>
         <Text style={styles.text}>{userData && userData.username}</Text>
         <Text style={styles.textemail}>{userData && userData.email}</Text>
+          </>
+        )}
       </View>
       <Svg width={screenWidth} height={halfCircleHeight} viewBox={`0 0 ${screenWidth} ${halfCircleHeight}`} style={styles.halfCircle}>
         <Path
@@ -71,30 +131,30 @@ const Settings = ({navigation}) => {
       </Svg>
 
 
-      <View style={{paddingHorizontal: 10, marginBottom: 100,}}>
+      <View style={{paddingHorizontal: 10, marginBottom: 100, marginTop: -20,}}>
         <Text style={styles.texttitle}>Akun dan Keamanan</Text>
         <View style={styles.card}>
           <CustomTouchable icon="user-circle" text="Akun" 
-          // menu={() => navigation.navigate('ForumDiskusi')}
+          menu={() => navigation.navigate('Account')}
           />
           <View style={{backgroundColor: "#ccc", height: 1.5,}}/>
           <CustomTouchable icon="star" text="Akses Premium" 
-          // menu={() => navigation.navigate('ForumDiskusi')}
+          menu={() => navigation.navigate('Premium')}
           />
         </View>
 
         <Text style={styles.texttitle}>Bantuan</Text>
         <View style={styles.card}>
           <CustomTouchable icon="briefcase" text="Bantuan" 
-          // menu={() => navigation.navigate('ForumDiskusi')}
+          menu={() => navigation.navigate('Help')}
           />
           <View style={{backgroundColor: "#ccc", height: 1.5,}}/>
           <CustomTouchable icon="info-circle" text="Tentang Kami" 
-          // menu={() => navigation.navigate('ForumDiskusi')}
+          menu={() => navigation.navigate('About')}
           />
           <View style={{backgroundColor: "#ccc", height: 1.5,}}/>
           <CustomTouchable icon="phone-square" text="Hubungi Kami" 
-          // menu={() => navigation.navigate('ForumDiskusi')}
+          menu={() => navigation.navigate('Contact')}
           />
         </View>
 

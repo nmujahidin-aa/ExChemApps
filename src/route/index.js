@@ -82,6 +82,21 @@ const Route = () => {
           <Stack.Screen name="PetunjukMedia" component={pages.menu.PetunjukMedia} />
           <Stack.Screen name="ChemtroAI" component={pages.menu.ChemtroAI} />
           {/* Menu di Beranda End */}
+
+          {/* Menu di Settings Start */}
+          <Stack.Screen name="Account" component={pages.menu.Account} />
+            {/* Submenu di Account Start*/}
+            <Stack.Screen name="Fullname" component={pages.menu.Fullname} />
+            <Stack.Screen name="Username" component={pages.menu.Username} />
+            <Stack.Screen name="Phone" component={pages.menu.Phone} />
+            <Stack.Screen name="Address" component={pages.menu.Address} />
+            <Stack.Screen name="Reset" component={pages.menu.Reset} />
+            {/* Submenu di Account End */}
+          <Stack.Screen name="Premium" component={pages.menu.Premium} />
+          <Stack.Screen name="About" component={pages.menu.About} />
+          <Stack.Screen name="Contact" component={pages.menu.Contact} />
+          <Stack.Screen name="Help" component={pages.menu.Help} />
+          {/* Menu di settings End */}
       </Stack.Navigator>
   )
 }

@@ -1,9 +1,11 @@
-import { FlatList, ScrollView, StyleSheet, Text, View, Image, Linking, TouchableOpacity } from 'react-native'
+import { FlatList, ScrollView, StyleSheet, Text, View, Image, Linking, TouchableOpacity, StatusBar, Animated, ActivityIndicator, RefreshControl } from 'react-native'
 import React, {useRef, useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FIRESTORE_DB, FIREBASE_AUTH } from '../../../../FirebseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import 'firebase/firestore';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+
 
 const Link = [
   {
@@ -43,35 +45,95 @@ const MenuComponent = ({ imageSource, text, onPress  }) => {
 
 const Home = ({navigation}) => {
   const [username, setUsername] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    setIsLoading(true);
+    
+    try {
       const user = FIREBASE_AUTH.currentUser;
       if (user) {
-        const userDocRef = doc(FIRESTORE_DB, 'Users', user.uid); // Menggunakan referensi dokumen di koleksi 'Users' dengan UID pengguna.
-        const userDocSnap = await getDoc(userDocRef); // Mengambil data dokumen.
+        const userDocRef = doc(FIRESTORE_DB, 'Users', user.uid);
+        const userDocSnap = await getDoc(userDocRef);
   
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
-          setUsername(userData.username);
+          setUserData({
+            username: userData.username,
+          });
+        }
+      }
+    } catch (error) {
+      console.log('Error refreshing data:', error);
+    }
+    
+    setIsLoading(false);
+    setRefreshing(false);
+  };
+
+
+  useEffect(() => {
+    StatusBar.setBackgroundColor('#7E370C'); 
+    StatusBar.setBarStyle('light-content');
+
+    const fetchUserData = async () => {
+      const user = FIREBASE_AUTH.currentUser;
+      if (user) {
+        const userDocRef = doc(FIRESTORE_DB, 'Users', user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+  
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          // Tambahkan penundaan sebelum mengatur username
+          setTimeout(() => {
+            setUsername(userData.username);
+            setIsLoading(false); // Setelah data dimuat, ubah isLoading menjadi false
+          }, 2000); // Contoh delay 2 detik
         }
       }
     };
   
     fetchUserData();
-  }, []);
+    
+  }, [refreshing]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Chemtro</Text>
-      <ScrollView style={{flex:1}}>
-
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={['#7E370C']} // Customize the loading indicator color
+          />
+        }
+      >
         <View style={styles.row}>
           <View style={{flexDirection: "row",}}>
+          {isLoading ? (
+              <SkeletonPlaceholder borderRadius={4}>
+                <SkeletonPlaceholder.Item flexDirection="row" alignItems="center">
+                  <SkeletonPlaceholder.Item width={40} height={40} borderRadius={50} />
+                  <SkeletonPlaceholder.Item marginLeft={10}>
+                    <SkeletonPlaceholder.Item width={120} height={10} />
+                    <SkeletonPlaceholder.Item marginTop={6} width={80} height={10} />
+                  </SkeletonPlaceholder.Item>
+                </SkeletonPlaceholder.Item>
+              </SkeletonPlaceholder>
+              ) : (
+              <> 
             <Image source={require("../../../assets/images/avatar.png")} style={styles.img}/>
             <View>
               <Text style={styles.text}>Hai, {username}</Text>
               <Text style={styles.text2}>Selamat Datang!</Text>
-            </View>         
+            </View>  
+            </>
+            )}       
           </View>
           <View>
             <Icon style={{paddingTop: 4,}} name="bell" size={20} color="#fff" />
@@ -205,7 +267,7 @@ const styles = StyleSheet.create({
   header:{
     backgroundColor: '#7E370C',
     color: '#fff',
-    fontSize: 24,
+    fontSize: 15,
     fontWeight: 'bold',
     textAlign: 'center',
     paddingVertical: 10,
@@ -309,4 +371,11 @@ const styles = StyleSheet.create({
     paddingBottom: 35,
     marginBottom: 100,
   },
+
+  lottieAnimation:{
+    width: 30,
+    aspectRatio: 2,
+    borderRadius: 20,
+  },
+  
 })

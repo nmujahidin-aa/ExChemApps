@@ -7,13 +7,13 @@ const CustomTouchable = ({icon, menu, text}) => {
     <TouchableOpacity activeOpacity={0.7} onPress={menu}>
       <View style={styles.row}>
         <View style={styles.col1}>
-          <Icon name={icon} size={17} color="#777" style={styles.icon}/>
+          <Icon name={icon} size={17} color="#7E370C" style={styles.icon}/>
         </View>
         <View style={styles.col2}>
           <Text style={styles.text}>{text}</Text>
         </View>
         <View style={styles.col3}>
-          <Icon name="angle-right" size={20} color="#000" />
+          <Icon name="angle-right" size={20} color="#B05E27" />
         </View> 
       </View>
     </TouchableOpacity>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   text:{
     fontWeight: "bold",
-    color: "#777",
+    color: "#7E370C",
   },
   icon:{
     textAlign: "center",

@@ -30,6 +30,7 @@ const Register = ({navigation}) => {
         address: "",
         fullname:"",
         phone:"",
+        avatar:"",
         totalPointsPostTest: 0,
         totalPointsPreTest: 0,
       });
