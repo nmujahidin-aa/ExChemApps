@@ -1,7 +1,7 @@
 import { FlatList, ScrollView, StyleSheet, Text, View, Image, Linking, TouchableOpacity, StatusBar, Animated, ActivityIndicator, RefreshControl } from 'react-native'
 import React, {useRef, useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { FIRESTORE_DB, FIREBASE_AUTH } from '../../../../FirebseConfig';
+import { FIRESTORE_DB, FIREBASE_AUTH } from '../../../../FirebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import 'firebase/firestore';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     borderRadius: 10, 
     height: 125, 
-    width: 350,
+    width: "100%",
   },
 
   card2:{

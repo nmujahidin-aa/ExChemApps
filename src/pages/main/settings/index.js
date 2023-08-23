@@ -1,6 +1,6 @@
 import { Alert, StyleSheet, Text, TouchableOpacity, View, ScrollView, Dimensions, Image, RefreshControl } from 'react-native'
 import React, {useEffect, useState} from 'react'
-import { FIREBASE_AUTH, FIRESTORE_DB } from '../../../../FirebseConfig'
+import { FIREBASE_AUTH, FIRESTORE_DB } from '../../../../FirebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import { signOut } from 'firebase/auth';
 import { CommonActions } from '@react-navigation/native';

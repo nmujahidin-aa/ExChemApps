@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, Alert, ActivityIndicator, RefreshControl
 import React, { useState, useEffect, useRef } from 'react'
 import Terms from '../../rights/terms'
 import { CustomInputAccount } from '../../../Components'
-import { FIREBASE_AUTH, FIRESTORE_DB, FIREBASE_STORAGE } from '../../../../FirebseConfig';
+import { FIREBASE_AUTH, FIRESTORE_DB, FIREBASE_STORAGE } from '../../../../FirebaseConfig';
 import { doc, getDoc, updateDoc, query } from 'firebase/firestore';
 import SweetAlert from 'react-native-sweet-alert';
 import Modal from 'react-native-modal'; 

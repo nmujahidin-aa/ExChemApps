@@ -30,7 +30,7 @@ const MainApp = ({navigation}) => {
       
       <Tab.Screen name="Home" component={pages.main.Home} options={{
         tabBarIcon: ({focused})=>(
-          <View style={styles.bg}>
+          <View style={focused ? styles.a : styles.b}>
               <Icon name="home" style={{color: focused ? "#7E370C" : "#fff", fontSize: 20,}} />
               <Text style={{color: focused ? "#7E370C" : "#fff", fontSize: 12,}}>Beranda</Text>
           </View>
@@ -39,7 +39,7 @@ const MainApp = ({navigation}) => {
 
       <Tab.Screen name="Friend" component={pages.main.Friend} options={{
         tabBarIcon: ({focused})=>(
-          <View style={styles.bg}>
+          <View style={focused ? styles.a : styles.b}>
               <Icon name="users" style={{color: focused ? "#7E370C" : "#fff", fontSize: 20,}} />
               <Text style={{color: focused ? "#7E370C" : "#fff", fontSize: 12,}}>Teman</Text>
           </View>
@@ -48,7 +48,7 @@ const MainApp = ({navigation}) => {
 
       <Tab.Screen name="Settings" component={pages.main.Settings} options={{
         tabBarIcon: ({focused})=>(
-          <View style={styles.bg}>
+          <View style={focused ? styles.a : styles.b}>
               <Icon name="gear" style={{color: focused ? "#7E370C" : "#fff", fontSize: 20,}} />
               <Text style={{color: focused ? "#7E370C" : "#fff", fontSize: 12,}}>Pengaturan</Text>
           </View>
@@ -72,6 +72,7 @@ const Route = () => {
 
           {/* Menu di Beranda Start */}
           <Stack.Screen name="KearifanLokal" component={pages.menu.KearifanLokal} />
+            <Stack.Screen name="VideoDetail" component={pages.menu.VideoDetail} />
           <Stack.Screen name="Kompetensi" component={pages.menu.Kompetensi} />
           <Stack.Screen name="PetaKonsep" component={pages.menu.PetaKonsep} />
           <Stack.Screen name="Eksplorasi" component={pages.menu.Eksplorasi} />
@@ -105,10 +106,16 @@ export default Route
 
 const focused = true;
 const styles = StyleSheet.create({
-  bg:{
+  a:{
     alignItems: 'center', 
-    justifyContent: 'center', 
-    backgroundColor: focused ? "#EBA403" : "#fff", 
+    justifyContent: 'center',  
+    flex: 1, 
+    width: '100%',
+    backgroundColor: ""
+  },
+  b:{
+    alignItems: 'center', 
+    justifyContent: 'center',  
     flex: 1, 
     width: '100%',
   },

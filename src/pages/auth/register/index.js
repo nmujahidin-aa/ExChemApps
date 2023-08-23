@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import InputComponent from '../../../Components/CustomeInput/InputComponent';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import {FIREBASE_AUTH, FIRESTORE_DB} from '../../../../FirebseConfig'
+import {FIREBASE_AUTH, FIRESTORE_DB} from '../../../../FirebaseConfig';
 import SweetAlert from 'react-native-sweet-alert';
 import Spinner from 'react-native-loading-spinner-overlay';
 // Diperlukan jika Anda menggunakan FontAwesome 5 dan belum mengatur secara global di level aplikasi

@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, RefreshControl } from 'react-native'
 import React, {useState, useEffect} from 'react'
-import { FIREBASE_AUTH, FIRESTORE_DB, FIREBASE_STORAGE } from '../../../../FirebseConfig'
+import { FIREBASE_AUTH, FIRESTORE_DB, FIREBASE_STORAGE } from '../../../../FirebaseConfig'
 import { doc, getDoc, updateDoc, query } from 'firebase/firestore';
 import { CustomTouchableSetting } from '../../../Components';
 import Icon from 'react-native-vector-icons/FontAwesome';

@@ -18,6 +18,7 @@ import Username from "./akun/username";
 import Phone from "./akun/phone";
 import Address from "./akun/address";
 import Reset from "./akun/reset";
+import VideoDetail from "./kearifanLokal/VideoDetail";
 
 export {
     KearifanLokal,
@@ -40,4 +41,5 @@ export {
     Phone,
     Address,
     Reset,
+    VideoDetail,
 };

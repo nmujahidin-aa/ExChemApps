@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, KeyboardAvoidingView, TouchableOpacity, 
 import React, {useState} from 'react'
 import InputComponent from '../../../Components/CustomeInput/InputComponent';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import {FIREBASE_AUTH} from '../../../../FirebseConfig'
+import {FIREBASE_AUTH} from '../../../../FirebaseConfig';
 import SweetAlert from 'react-native-sweet-alert';
 import Spinner from 'react-native-loading-spinner-overlay';
 
