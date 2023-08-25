@@ -19,6 +19,7 @@ import Phone from "./akun/phone";
 import Address from "./akun/address";
 import Reset from "./akun/reset";
 import VideoDetail from "./kearifanLokal/VideoDetail";
+import Fullscreen from "./petaKonsep/Fullscreen";
 
 export {
     KearifanLokal,
@@ -42,4 +43,5 @@ export {
     Address,
     Reset,
     VideoDetail,
+    Fullscreen,
 };
