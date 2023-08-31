@@ -73,10 +73,18 @@ const Route = () => {
           {/* Menu di Beranda Start */}
           <Stack.Screen name="KearifanLokal" component={pages.menu.KearifanLokal} />
             <Stack.Screen name="VideoDetail" component={pages.menu.VideoDetail} />
+
           <Stack.Screen name="Kompetensi" component={pages.menu.Kompetensi} />
           <Stack.Screen name="PetaKonsep" component={pages.menu.PetaKonsep} />
             <Stack.Screen name="Fullscreen" component={pages.menu.Fullscreen} />
+
           <Stack.Screen name="Eksplorasi" component={pages.menu.Eksplorasi} />
+            <Stack.Screen name="LKPD" component={pages.menu.LKPD} />
+            <Stack.Screen name="Flipbook" component={pages.menu.Flipbook} />
+            <Stack.Screen name="PostTest" component={pages.menu.PostTest} />
+            <Stack.Screen name="PreTest" component={pages.menu.PreTest} />
+            <Stack.Screen name="VideoPembelajaran" component={pages.menu.VideoPembelajaran} />
+
           <Stack.Screen name="ForumDiskusi" component={pages.menu.ForumDiskusi} />
           <Stack.Screen name="ScanAR" component={pages.menu.ScanAR} />
           <Stack.Screen name="InfoPengembang" component={pages.menu.InfoPengembang} />

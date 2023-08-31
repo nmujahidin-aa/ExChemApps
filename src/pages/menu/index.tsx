@@ -20,6 +20,11 @@ import Address from "./akun/address";
 import Reset from "./akun/reset";
 import VideoDetail from "./kearifanLokal/VideoDetail";
 import Fullscreen from "./petaKonsep/Fullscreen";
+import LKPD from "./eksplorasi/lkpd";
+import Flipbook from "./eksplorasi/flipbook";
+import PostTest from "./eksplorasi/post-test";
+import PreTest from "./eksplorasi/pre-test";
+import VideoPembelajaran from "./eksplorasi/videoPembelajaran";
 
 export {
     KearifanLokal,
@@ -44,4 +49,9 @@ export {
     Reset,
     VideoDetail,
     Fullscreen,
+    LKPD,
+    Flipbook,
+    PostTest,
+    PreTest,
+    VideoPembelajaran,
 };

@@ -1,6 +1,8 @@
 import { FlatList, ScrollView, StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import LinearGradient from 'react-native-linear-gradient';
+
 
 const Team = [
     {
@@ -85,17 +87,25 @@ const InfoPengembang = () => {
     <View style={styles.container}>
         <Text style={styles.header}>Informasi</Text>
             <ScrollView>
-            <Text style={styles.text}>Tentang Chemtro</Text>
-            <Text style={styles.description}>
-                Chemtro merupakan sebuah kit pembelajaran kimia dengan fokus materi elektrolisis
-            </Text>
-            <Text style={styles.text}>Meet Our Team</Text>
-            <FlatList
-            data={Team}
-            renderItem={renderTeam}
-            />
-            
-        <View style={{paddingBottom: 50,}}></View>
+            <View style={{backgroundColor: "#7E370C", paddingBottom: 20,}}>
+                <Text style={styles.text}>Mengenal tim CHEMTRO!</Text>
+                <Text style={styles.description}>
+                Selamat datang di dunia CHEMTRO! Di balik inovasi edukasi elektrokimia dan kearifan lokal yang mengagumkan, terdapat tim yang penuh semangat dan dedikasi. Mari kenali lebih dekat para pemimpin hebat kami yang bertanggung jawab atas kesuksesan CHEMTRO.
+                </Text>
+            </View>
+
+            <LinearGradient
+                colors={['#7E370C', '#EBA403']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
+                style={{marginTop: -5, paddingBottom: 50,}}
+                >
+                <Text style={styles.text}>Meet Our Team</Text>
+                <FlatList
+                    data={Team}
+                    renderItem={renderTeam}
+                />
+            </LinearGradient>
         </ScrollView>
     </View>
   )
@@ -105,7 +115,7 @@ export default InfoPengembang
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor: "#EDE0B3",
+        backgroundColor: "#EBA403",
         flex:1,
         position: "relative",
     },
@@ -121,22 +131,28 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 17,
         fontWeight: "bold",
-        color: "#000",
+        color: "#fff",
         paddingTop: 15,
     },
     description:{
         paddingHorizontal: 20,
         textAlign: "justify",
         paddingTop: 10,
-        color: "#747474",
+        color: "#fff",
+        fontSize: 12,
+        fontWeight: "400",
     },
     card:{
         flexDirection: "row",
         backgroundColor: "#fff",
         marginHorizontal: 20,
         borderRadius: 15,
-        marginTop: 10,
+        marginTop: 5,
+        marginBottom: 5,
         padding: 10,
+        borderColor: "#000",
+        borderWidth: 0.5,
+
     },
     card1:{
         flex: 1,

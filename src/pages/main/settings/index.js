@@ -15,6 +15,7 @@ const Settings = ({navigation}) => {
   const firestore = FIRESTORE_DB;
   const auth = FIREBASE_AUTH;
 
+
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   
@@ -78,9 +79,11 @@ const Settings = ({navigation}) => {
             if (userDocSnap.exists()) {
                 const userData = userDocSnap.data();
                 setUserData({
+                    avatar: userData.avatar,
                     username: userData.username,
                     email: user.email,
                 });
+                console.log(userData.avatar);
                 setIsLoading(false); // Setelah data dimuat, ubah isLoading menjadi false
             }
         }
@@ -107,19 +110,18 @@ const Settings = ({navigation}) => {
         {isLoading ? (
           <SkeletonPlaceholder borderRadius={4}>
             <View style={{alignItems: 'center'}}>
-              <View style={{width: 100, height: 100, borderRadius: 50}} />
               <View>
-                <Image style={{marginTop: 6, width: 150, height: 18}} source={require('../../../assets/images/avatar.png')} />
+                <Image source={require("../../../assets/images/avatar.png")} style={styles.image}/>
+                <Text style={{marginTop: 6, fontSize: 14, lineHeight: 14,}}></Text>
                 <Text style={{marginTop: 6, fontSize: 14, lineHeight: 14,}}></Text>
               </View>
             </View>
-            
           </SkeletonPlaceholder>
           ) : (
           <>
-        <Image source={require("../../../assets/images/avatar.png")} style={styles.image}/>
-        <Text style={styles.text}>{userData && userData.username}</Text>
-        <Text style={styles.textemail}>{userData && userData.email}</Text>
+          <Image style={styles.image} source={{ uri: userData.avatar || 'https://firebasestorage.googleapis.com/v0/b/etnochem-696d8.appspot.com/o/default_photo.png?alt=media&token=0dbd1725-a978-427f-a47f-e2ce3f489d1b' }} />
+            <Text style={styles.text}>{userData && userData.username}</Text>
+            <Text style={styles.textemail}>{userData && userData.email}</Text>
           </>
         )}
       </View>

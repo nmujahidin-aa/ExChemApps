@@ -29,7 +29,7 @@ const Account = ({navigation}) => {
     const auth = FIREBASE_AUTH;
     const storage = FIREBASE_STORAGE;
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -49,7 +49,7 @@ const Account = ({navigation}) => {
         const imageRef = ref(storage, `${uid}.jpg`);
 
         // Upload the Blob to Firebase Storage
-        await uploadBytes(imageRef, imageBlob, { contentType: "image/jpeg/jpg" });
+        await uploadBytes(imageRef, imageBlob, { contentType: "image/jpeg" });
 
         // Get the download URL for the uploaded image
         const avatar = await getDownloadURL(imageRef);
@@ -147,7 +147,7 @@ const Account = ({navigation}) => {
     try {
         const uid = user.uid;
         const userDocRef = doc(firestore, 'Users', uid);
-        setLoading(true);
+        // setLoading(true);
         await updateDoc(userDocRef, {
             avatar: avatar, // Gunakan URL foto yang diperoleh dari uploadImage
         });
@@ -164,7 +164,7 @@ const Account = ({navigation}) => {
         console.log('User updated successfully!');
         } catch (error) {
         console.log('Error updating user:', error);
-        setLoading(true);
+        // setLoading(true);
         // Show error alert
         SweetAlert.showAlertWithOptions({
             title: 'Error',
@@ -195,14 +195,21 @@ const Account = ({navigation}) => {
             <View style={styles.card}>
                 <View style={styles.cardbBody}>
                     <View style={{justifyContent: "center", alignItems: "center",}}>
-                    <Image
+                    {loading ?(
+                        <Image
                         source={
                             selectedImage
                             ? { uri: selectedImage.uri } // Menggunakan URI dari selectedImage
                             : (userDataAvatar ? { uri: userDataAvatar } : defaultImage)
                         }
                         style={styles.avatar}
-                    />
+                        />
+                    ):( 
+                        <SkeletonPlaceholder borderRadius={4}>
+                            <Image style={styles.avatar} source={require('../../../assets/images/avatar.png')} />
+                        </SkeletonPlaceholder>
+                    )}
+                    
                     <TouchableOpacity activeOpacity={0.7} style={styles.edit} onPress={handleImagePicker}>
                         <Icon name="camera" size={13} color="#fff" />
                     </TouchableOpacity>
@@ -211,19 +218,19 @@ const Account = ({navigation}) => {
                     <CustomTouchableSetting text="Username" data={username}
                         menu={() => navigation.navigate('Username')}
                     />
-                    <View style={{backgroundColor: "#ccc", height: 1.0,}}/>
+                    <View style={{backgroundColor: "#EDE0B3", height: 1.0,}}/>
                     <CustomTouchableSetting text="Nama Lengkap" data={fullname}
                         menu={() => navigation.navigate('Fullname')}
                     />
-                    <View style={{backgroundColor: "#ccc", height: 1.0,}}/>
+                    <View style={{backgroundColor: "#EDE0B3", height: 1.0,}}/>
                     <CustomTouchableSetting text="Email" data={email}
                         // menu={() => navigation.navigate('Account')}
                     />
-                    <View style={{backgroundColor: "#ccc", height: 1.0,}}/>
+                    <View style={{backgroundColor: "#EDE0B3", height: 1.0,}}/>
                     <CustomTouchableSetting text="Handphone" data={phone}
                         menu={() => navigation.navigate('Phone')}
                     />
-                    <View style={{backgroundColor: "#ccc", height: 1.0,}}/>
+                    <View style={{backgroundColor: "#EDE0B3", height: 1.0,}}/>
                     <CustomTouchableSetting text="Address" data={address}
                         menu={() => navigation.navigate('Address')}
                     />
@@ -244,11 +251,11 @@ export default Account
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor: "#EDE0B3",
+        backgroundColor: "#7E370C",
         flex: 1,
     },
     container1:{
-        backgroundColor: "#EDE0B3",
+        backgroundColor: "#7E370C",
         flex: 1,
         paddingHorizontal: 10,
     },
@@ -264,14 +271,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginTop: 80,
         borderWidth: 1.5,
-        borderColor: "#ccc",
+        borderColor: "#EDE0B3",
     },
     card2:{
         backgroundColor: "#fff",
         borderRadius: 5,
         marginTop: 20,
         borderWidth: 1.5,
-        borderColor: "#ccc",
+        borderColor: "#EDE0B3",
     },
     avatar:{
         height: 150,

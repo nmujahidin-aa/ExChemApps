@@ -45,6 +45,7 @@ const MenuComponent = ({ imageSource, text, onPress  }) => {
 
 const Home = ({navigation}) => {
   const [username, setUsername] = useState('');
+  const [avatar, setAvatar] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -90,6 +91,7 @@ const Home = ({navigation}) => {
           // Tambahkan penundaan sebelum mengatur username
           setTimeout(() => {
             setUsername(userData.username);
+            setAvatar(userData.avatar);
             setIsLoading(false); // Setelah data dimuat, ubah isLoading menjadi false
           }, 2000); // Contoh delay 2 detik
         }
@@ -126,8 +128,9 @@ const Home = ({navigation}) => {
                 </SkeletonPlaceholder.Item>
               </SkeletonPlaceholder>
               ) : (
-              <> 
-            <Image source={require("../../../assets/images/avatar.png")} style={styles.img}/>
+              <>
+            <Image style={styles.img} source={{ uri: avatar || 'https://firebasestorage.googleapis.com/v0/b/chemtro-edf06.appspot.com/o/avatar.png?alt=media&token=ce6d872a-b2db-48e0-927c-d642dd072302' }} />
+
             <View>
               <Text style={styles.text}>Hai, {username}</Text>
               <Text style={styles.text2}>Selamat Datang!</Text>

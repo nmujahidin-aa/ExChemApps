@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Carousel, { Pagination } from 'react-native-snap-carousel-v4';
 import { useNavigation } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -25,7 +25,7 @@ const CustomCarousel = () => {
       title: 'Korosi',
       image: require('../../assets/images/petaKonsep/3.png'),
     },
-    // Add more items as needed
+
   ];
 
   const navigation = useNavigation();
