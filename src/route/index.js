@@ -82,7 +82,9 @@ const Route = () => {
             <Stack.Screen name="LKPD" component={pages.menu.LKPD} />
             <Stack.Screen name="Flipbook" component={pages.menu.Flipbook} />
             <Stack.Screen name="PostTest" component={pages.menu.PostTest} />
+              <Stack.Screen name="SoalPosttest" component={pages.menu.SoalPosttest} />
             <Stack.Screen name="PreTest" component={pages.menu.PreTest} />
+              <Stack.Screen name="SoalPretest" component={pages.menu.SoalPretest} />
             <Stack.Screen name="VideoPembelajaran" component={pages.menu.VideoPembelajaran} />
 
           <Stack.Screen name="ForumDiskusi" component={pages.menu.ForumDiskusi} />

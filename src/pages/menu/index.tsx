@@ -25,6 +25,8 @@ import Flipbook from "./eksplorasi/flipbook";
 import PostTest from "./eksplorasi/post-test";
 import PreTest from "./eksplorasi/pre-test";
 import VideoPembelajaran from "./eksplorasi/videoPembelajaran";
+import SoalPretest from "./eksplorasi/pre-test/soal";
+import SoalPosttest from "./eksplorasi/post-test/soal";
 
 export {
     KearifanLokal,
@@ -54,4 +56,6 @@ export {
     PostTest,
     PreTest,
     VideoPembelajaran,
+    SoalPretest,
+    SoalPosttest,
 };
