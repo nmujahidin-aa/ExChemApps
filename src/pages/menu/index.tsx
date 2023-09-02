@@ -27,6 +27,7 @@ import PreTest from "./eksplorasi/pre-test";
 import VideoPembelajaran from "./eksplorasi/videoPembelajaran";
 import SoalPretest from "./eksplorasi/pre-test/soal";
 import SoalPosttest from "./eksplorasi/post-test/soal";
+import VideoPembelajaranDetail from "./eksplorasi/videoPembelajaran/video";
 
 export {
     KearifanLokal,
@@ -58,4 +59,5 @@ export {
     VideoPembelajaran,
     SoalPretest,
     SoalPosttest,
+    VideoPembelajaranDetail,
 };

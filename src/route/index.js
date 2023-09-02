@@ -86,6 +86,7 @@ const Route = () => {
             <Stack.Screen name="PreTest" component={pages.menu.PreTest} />
               <Stack.Screen name="SoalPretest" component={pages.menu.SoalPretest} />
             <Stack.Screen name="VideoPembelajaran" component={pages.menu.VideoPembelajaran} />
+              <Stack.Screen name="VideoPembelajaranDetail" component={pages.menu.VideoPembelajaranDetail} />
 
           <Stack.Screen name="ForumDiskusi" component={pages.menu.ForumDiskusi} />
           <Stack.Screen name="ScanAR" component={pages.menu.ScanAR} />

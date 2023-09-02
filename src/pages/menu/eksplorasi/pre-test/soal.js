@@ -227,7 +227,7 @@ const SoalPretest = () => {
                             {score * 10}
                         </Text>
                     </View>
-                    <Text style={{textAlign: "center", color: "#000",}}>Yuk Sobat Chemtro tingkatkan lagi pengetahuan kamu dengan belajar dan berkesplorasu materi elektrokimia</Text>
+                    <Text style={{textAlign: "center", color: "#000",}}>Yuk Sobat Chemtro tingkatkan lagi pengetahuan kamu dengan belajar dan berkesplorasi materi elektrokimia</Text>
                     <TouchableOpacity
                     onPress={() => navigation.replace('Eksplorasi')}
                     style={{

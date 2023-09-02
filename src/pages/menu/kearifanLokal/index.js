@@ -16,7 +16,6 @@ const VideoListItem = ({ video, onPress }) => {
   }
 
   return (
-    
       <View style={styles.videoContainer}>
           <Image
             style={[
