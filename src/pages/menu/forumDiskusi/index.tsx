@@ -67,22 +67,27 @@ const ForumDiskusi = ({navigation}) => {
   };
   
   
-  
 
   const renderTextWithLinks = (text) => {
-    const parts = text.split(linkRegex);
-    return parts.map((part, index) => {
-      if (linkRegex.test(part)) {
-        return (
-          <Text key={index} style={{ color: '#2980b9' }} onPress={() => Linking.openURL(part)}>
-            {part}
-          </Text>
-        );
-      } else {
-        return <Text key={index}>{part}</Text>;
-      }
-    });
+    if (typeof text !== 'undefined') {
+      const parts = text.split(linkRegex);
+      return parts.map((part, index) => {
+        if (linkRegex.test(part)) {
+          return (
+            <Text key={index} style={{ color: '#2980b9' }} onPress={() => Linking.openURL(part)}>
+              {part}
+            </Text>
+          );
+        } else {
+          return <Text key={index}>{part}</Text>;
+        }
+      });
+    } else {
+      // Handle the case where 'text' is undefined
+      return null; // Or you can return a default value or handle it differently
+    }
   };
+  
   
   const sendMessage = async () => {
     const msg = message.trim();
@@ -186,29 +191,29 @@ const ForumDiskusi = ({navigation}) => {
         )}
         <View style={[styles.messageContainer, myMessage ? styles.userMessageContainer : styles.otherMessageContainer]}>
           <View style={{ flexDirection: 'row' }}>
-            {myMessage ? null : (
+            {!myMessage && (
               <Image source={{ uri: item.avatar || 'https://firebasestorage.googleapis.com/v0/b/etnochem-696d8.appspot.com/o/default_photo.png?alt=media&token=0dbd1725-a978-427f-a47f-e2ce3f489d1b' }} style={styles.avatar} />
             )}
             <View style={[myMessage ? styles.userMessageContent : styles.otherMessageContent, { marginLeft: 8, marginRight: 8 }]}>
-              <View style={{flexDirection: "row", justifyContent: "space-between",}}>
-                <Text style={[styles.userName, { color: myMessage ? 'white' : 'black' }]}>{item.username}</Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Text style={[styles.userName, { color: myMessage ? 'white' : 'black' }]}>{myMessage ? 'Anda' : item.username}</Text>
                 {myMessage ? (
                   <TouchableOpacity onPress={() => deleteMessage(item.id)} style={styles.deleteButton}>
-                    <Icon name={'trash'} size={12} color={'#7E370C'}/>
+                    <Icon name={'trash'} size={12} color={'#7E370C'} />
                   </TouchableOpacity>
                 ) : null}
               </View>
               <Text style={[styles.messageText, { color: myMessage ? 'white' : 'black' }]}>{renderTextWithLinks(item.message)}</Text>
               <Text style={[styles.time, { color: myMessage ? 'white' : 'black' }]}>{currentDate.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</Text>
             </View>
-            {myMessage ? (
-              <Image source={{ uri: item.avatar || 'https://firebasestorage.googleapis.com/v0/b/etnochem-696d8.appspot.com/o/default_photo.png?alt=media&token=0dbd1725-a978-427f-a47f-e2ce3f489d1b' }} style={styles.avatar} />
-            ) : null}
           </View>
         </View>
       </View>
     );
   };
+  
+  
+  
   
   
   if (!auth.currentUser) {
@@ -219,8 +224,8 @@ const ForumDiskusi = ({navigation}) => {
     <View style={styles.container}>
       <KeyboardAvoidingView
         style={{flex: 1}}
-        behavior={Platform.OS === 'android' ? 'height' : undefined}
-        keyboardVerticalOffset={Platform.OS === 'android' ? 30 : -30}
+        behavior={Platform.OS === 'android' ? 'padding' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'android' ? -500 : 0}
       >
         <Text style={styles.header}>Forum Diskusi</Text>
         <View style={{flex: 1}}>
@@ -243,6 +248,7 @@ const ForumDiskusi = ({navigation}) => {
         </View>
         {showScrollToBottomButton && (
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={scrollToBottom}
             style={[styles.buttonScrollToBottom, { width: width * 0.07, top: height * 0.85, left: width * 0.9, height: width * 0.07, borderRadius: width * 0.07 }]}
           >
@@ -251,12 +257,15 @@ const ForumDiskusi = ({navigation}) => {
         )}
         <View style={styles.inputContainer}>
           <View style={styles.textInputContainer}>
+            <TouchableOpacity>
+              <Icon style={styles.icon} name="paperclip" size={20} color="#B05E27" solid={message !== ''} />
+            </TouchableOpacity>
             <TextInput
               multiline
               value={message}
               onChangeText={(text) => setMessage(text)}
-              placeholder="Ketik Pesan..."
-              placeholderTextColor="#ddd"
+              placeholder=" Ketik Pesan..."
+              placeholderTextColor="#777"
               style={styles.messageInput}
             />
             <TouchableOpacity onPress={sendMessage}>
@@ -281,8 +290,9 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   messageContainer: {
-    marginTop: 10,
-    marginHorizontal: 10,
+    marginTop: 5,
+    marginBottom: 5,
+    marginHorizontal: 5,
     borderRadius: 10,
     maxWidth: '80%',
   },
@@ -296,19 +306,21 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   userMessageContent: {
-    padding: 10,
-    borderRadius: 10,
-    minWidth: "40%",
-    maxWidth: '80%',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
+    minWidth: "50%",
+    maxWidth: '100%',
     borderWidth: 1,
     borderColor: "#7E370C",
     backgroundColor: '#B05E27',
   },
   otherMessageContent: {
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     borderRadius: 10,
-    minWidth: "40%",
-    maxWidth: '80%',
+    minWidth: "50%",
+    maxWidth: '100%',
     borderWidth: 1,
     backgroundColor: '#fff',
     borderColor: "#7E370C",
@@ -325,7 +337,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    marginRight: 10,
+    marginRight: 3,
   },
   messageText: {
     fontSize: 14,
@@ -335,6 +347,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: 'black',
     alignSelf: 'flex-end',
+    marginTop: -5,
   },
   dateContainer: {
     alignSelf: 'center',
@@ -360,21 +373,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputContainer: {
-    backgroundColor: '#fff', // Ganti dengan warna latar belakang yang sesuai
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   textInputContainer: {
     flexDirection: 'row', // Menyusun elemen secara horizontal
     alignItems: 'center', // Menyusun elemen secara vertikal di tengah
+    backgroundColor: "#ddd",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 100,
+    paddingRight: 15,
+    paddingLeft: 5,
   },
   messageInput: {
     flex: 1, // Ini akan membuat TextInput menempati sebanyak mungkin ruang yang tersedia
     color: '#000', // Warna teks
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 5,
-
   },
   icon: {
     marginLeft: 10, // Jarak antara TextInput dan tombol
