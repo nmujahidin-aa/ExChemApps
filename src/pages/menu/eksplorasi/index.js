@@ -1,13 +1,15 @@
-import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import React, {useState, useLayoutEffect} from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import { LinearTextGradient } from "react-native-text-gradient";
 import data from '../../../data/eksplorasi/data';
 import { useNavigation } from '@react-navigation/native';
+import { Modal } from '../../../Components/Modal';
 
 const Eksplorasi = () => {
   const navigation = useNavigation();
-  const allMenu = data; // Deklarasikan di sini untuk diakses di FlatList
+  const allMenu = data;
+  Modal(navigation);
 
   const renderData = ({ item }) => {
     return (
@@ -40,15 +42,17 @@ const Eksplorasi = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Eksplorasi</Text>
-      <Text style={styles.desc}>Di menu Eksplorasi, kita akan menguji kemampuan awalmu, memberikan materi dan melihat perkembanganmu!</Text>
-      <FlatList
-        data={allMenu}
-        renderItem={renderData}
-        keyExtractor={(item) => item.id.toString()} // Add this to specify a unique key for each item
-      />
-    </View>
+    <TouchableWithoutFeedback>
+      <View style={styles.container}>
+        <Text style={styles.header}>Eksplorasi</Text>
+        <Text style={styles.desc}>Di menu Eksplorasi, kita akan menguji kemampuan awalmu, memberikan materi dan melihat perkembanganmu!</Text>
+        <FlatList
+          data={allMenu}
+          renderItem={renderData}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 

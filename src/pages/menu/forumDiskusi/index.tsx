@@ -1,13 +1,12 @@
 import {TouchableOpacity, Linking, View, FlatList, useWindowDimensions, StyleSheet, TextInput, Text, KeyboardAvoidingView, Platform, Image } from 'react-native';
 import React, { useLayoutEffect, useState, useRef, useEffect } from 'react';
-import { DocumentData, addDoc, where, getDocs, deleteDoc, collection, onSnapshot, orderBy, query, serverTimestamp, doc, getDoc } from 'firebase/firestore';
+import { DocumentData, addDoc, deleteDoc, collection, onSnapshot, orderBy, query, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import { FIRESTORE_DB, FIREBASE_AUTH } from '../../../../FirebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 const groupPath = 'ChatGroups/general';
-import DeviceInfo from 'react-native-device-info';
-import { getUniqueId } from 'react-native-device-info';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Alert } from 'react-native';
+import { Modal } from '../../../Components/Modal';
 
 
 const ForumDiskusi = ({navigation}) => {
@@ -20,32 +19,7 @@ const ForumDiskusi = ({navigation}) => {
   const firestore = FIRESTORE_DB;
   const linkRegex = /(?:^|\s)((?:https?:\/\/)[^\s]+)/gi;
 
-  const isDeviceRegistered = async () => {
-    try {
-      const deviceId = await DeviceInfo.getUniqueId();
-      console.log(deviceId);
-      // Replace 'uniqueCodes' with the collection path where device information is stored in Firestore.
-      const codesCollectionRef = collection(firestore, 'uniqueCodes');
-
-      // Query the collection to check if the given 'deviceId' exists in the 'device' array field.
-      const q = query(codesCollectionRef, where('device', 'array-contains', deviceId));
-      const querySnapshot = await getDocs(q);
-      return !querySnapshot.empty;
-    } catch (error) {
-      console.error('Error checking device registration:', error);
-      return false;
-    }
-  };
-
-  useLayoutEffect(() => {
-    const checkDeviceRegistration = async () => {
-      const registered = await isDeviceRegistered();
-      // if (!registered) {
-      //   navigation.replace('LockScreen');
-      // }
-    };
-    checkDeviceRegistration();
-  }, []);
+  Modal(navigation);
 
   const flatListRef = useRef<FlatList>(null); // Create a ref for FlatList
 

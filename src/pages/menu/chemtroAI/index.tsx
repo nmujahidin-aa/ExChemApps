@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { WebView } from 'react-native-webview';
 import LottieView from 'lottie-react-native';
+import { Modal } from '../../../Components/Modal';
 
-const ChemtroAI = () => {
+const ChemtroAI = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(true);
+
+  Modal(navigation);
+  
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Chemtro AI</Text>
