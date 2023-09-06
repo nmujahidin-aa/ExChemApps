@@ -1,11 +1,12 @@
 import React, {useState, useLayoutEffect} from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { WebView } from 'react-native-webview';
 import LottieView from 'lottie-react-native';
 import { Modal } from '../../../Components/Modal';
 
 const ChemtroAI = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(true);
+  const windowWidth = Dimensions.get('window').width;
 
   Modal(navigation);
   
@@ -23,8 +24,8 @@ const ChemtroAI = ({navigation}) => {
         </View>
       )}
       <WebView
-        style={[styles.webview, { display: isLoading ? 'none' : 'flex' }]}
-        source={{ uri: 'https://mediafiles.botpress.cloud/d12f06b8-0f4b-4df2-ad9f-e4a515bcd309/webchat/bot.html' }}
+        style={[styles.webview, { display: isLoading ? 'none' : 'flex', width: windowWidth*1.05, }]}
+        source={{ uri: 'https://mediafiles.botpress.cloud/9bc3e09f-812c-4a80-9c86-bfebe188ce27/webchat/bot.html' }}
         originWhitelist={['*']}
         onLoad={() => setIsLoading(false)}
       />
@@ -51,9 +52,8 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   webview:{
-    marginTop: -80,
+    marginTop: -85,
     backgroundColor: "#fff",
-    flex: 1,
   },
   lottie:{
     width: 200,

@@ -1,16 +1,12 @@
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, RefreshControl } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { FIREBASE_AUTH, FIRESTORE_DB, FIREBASE_STORAGE } from '../../../../FirebaseConfig'
-import { doc, getDoc, updateDoc, query } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { CustomTouchableSetting } from '../../../Components';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'react-native-image-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import {CommonActions} from '@react-navigation/native';
-import { launchImageLibrary } from 'react-native-image-picker';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-
 
 
 const Account = ({navigation}) => {
@@ -21,10 +17,7 @@ const Account = ({navigation}) => {
     const [userDataAvatar, setUserDataAvatar] = useState(null);
     const [phone, setPhone] = useState('');
     const [user, setUser] = useState();
-    const [imageAuth, setImageAuth] = useState('');
-    const [isMenuVisible, setMenuVisible] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
-    
     const firestore = FIRESTORE_DB;
     const auth = FIREBASE_AUTH;
     const storage = FIREBASE_STORAGE;
