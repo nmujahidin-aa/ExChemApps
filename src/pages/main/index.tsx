@@ -1,10 +1,10 @@
 import Home from "./home";
-import Friend from "./friend";
+import Game from "./game";
 import Settings from "./settings";
 
 
 export {
     Home,
-    Friend,
+    Game,
     Settings, 
 };

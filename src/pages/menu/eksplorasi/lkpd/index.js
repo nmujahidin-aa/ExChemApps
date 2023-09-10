@@ -1,14 +1,29 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { View, StyleSheet, Button } from 'react-native';
+import { WebView } from 'react-native-webview';
 
 const LKPD = () => {
+
   return (
-    <View>
-      <Text>LKPD</Text>
+    <View style={styles.container}>
+      <WebView style={styles.webview}
+        source={{ uri: 'https://online.flipbuilder.com/lmnrx/ohsa/' }}
+        originWhitelist={['*']}
+      />
+      
     </View>
-  )
-}
+  );
+};
 
-export default LKPD
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#fff",
+    width: "100%",
+    height: "100%",
+  },
+  webview:{
+    flex: 1,
+  },
+});
 
-const styles = StyleSheet.create({})
+export default LKPD;

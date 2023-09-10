@@ -37,11 +37,11 @@ const MainApp = ({navigation}) => {
         )
       }}/>
 
-      <Tab.Screen name="Friend" component={pages.main.Friend} options={{
+      <Tab.Screen name="Game" component={pages.main.Game} options={{
         tabBarIcon: ({focused})=>(
           <View style={focused ? styles.a : styles.b}>
-              <Icon name="users" style={{color: focused ? "#7E370C" : "#fff", fontSize: 20,}} />
-              <Text style={{color: focused ? "#7E370C" : "#fff", fontSize: 12,}}>Teman</Text>
+              <Icon name="gamepad" style={{color: focused ? "#7E370C" : "#fff", fontSize: 20,}} />
+              <Text style={{color: focused ? "#7E370C" : "#fff", fontSize: 12,}}>Permainan</Text>
           </View>
         )
       }}/>
