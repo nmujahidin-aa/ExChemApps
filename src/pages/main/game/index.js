@@ -134,7 +134,7 @@
 
 
 import React, { Component } from 'react';
-import { View, FlatList, Text, StyleSheet, Dimensions, ScrollView, TextInput } from 'react-native';
+import { View, FlatList, Text, StyleSheet, Dimensions, ScrollView, TextInput, TouchableOpacity, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const screenWidth = Dimensions.get('window').width;
@@ -144,7 +144,10 @@ class Game extends Component {
     super(props);
     this.state = {
       data: [
-        { id: 1, title: 'Game 1' },
+        { id: 1, 
+          title: 'Game 1',
+          link: "https://wordwall.net/embed/3f981ec66d774b988042012956a7747f?themeId=1&templateId=46&fontStackId=0' width='500' height='380' frameborder='0 allowfullscreen",
+        },
         { id: 2, title: 'Game 2' },
         { id: 3, title: 'Game 3' },
         { id: 4, title: 'Game 4' },
@@ -157,11 +160,11 @@ class Game extends Component {
   }
 
   renderCard = ({ item }) => (
-    
+    <TouchableOpacity onPress={()=>{Linking.openURL(item.link)}}>
       <View style={styles.card}>
         <Text>{item.title}</Text>
       </View>
-    
+    </TouchableOpacity>
   );
 
   render() {
