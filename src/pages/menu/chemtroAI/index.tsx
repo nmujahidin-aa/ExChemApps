@@ -26,7 +26,6 @@ const ChemtroAI = ({navigation}) => {
       <WebView
         style={[styles.webview, { display: isLoading ? 'none' : 'flex', width: windowWidth*1.05, }]}
         source={{ uri: 'https://chemtro-ai.netlify.app/' }}
-        // source={{uri: "https://wordwall.net/resource/60188573/quizz-kimia"}}
         originWhitelist={['*']}
         onLoad={() => setIsLoading(false)}
       />
